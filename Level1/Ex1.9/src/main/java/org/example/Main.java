@@ -7,9 +7,20 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         String str;
-        Scanner input = new Scanner(System.in);
-        System.out.print("Your string: ");
-        str = input.nextLine();
+        while (true){
+            try{
+                Scanner input = new Scanner(System.in);
+                System.out.print("Your string: ");
+                str = input.nextLine();
+                if(!str.isBlank()){
+                    break;
+                }
+            }
+            catch (Exception e){
+                System.out.println("Input can't be empty! Please try again!");
+            }
+        }
+
         int word_num = 0;
         if(str.charAt(0) != ' ')
         {
