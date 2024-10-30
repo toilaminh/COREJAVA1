@@ -1,6 +1,7 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -37,45 +38,14 @@ public class Main {
                 }
             }
         }
-        List<Integer> sum = new ArrayList<>();
-        int totalSubsets = 1 << arr_large;
-        for (int subsetMask = 0; subsetMask < totalSubsets; subsetMask++) {
-            int currentSum = 0;
-            for (int i = 0; i < arr_large; i++) {
-                if ((subsetMask & (1 << i)) != 0) {
-                    currentSum += arr[i];
-                }
+        Arrays.sort(arr);
+        int sum = 1;
+        for(int i : arr){
+            if(i > sum){
+                break;
             }
-            sum.add(currentSum);
+            sum += i;
         }
-        int num = 1;
-        boolean flag = true;
-        while(flag == true){
-            boolean in_f = true;
-            for(int i : arr){
-                if(num == i){
-                    num += 1;
-                    in_f = true;
-                    break;
-                }
-                else {
-                    in_f = false;
-                }
-            }
-            for (int i : sum){
-                if(num == i){
-                    num += 1;
-                    in_f = true;
-                    break;
-                }
-                else {
-                    in_f = false;
-                }
-            }
-            if(in_f == false){
-                flag = false;
-            }
-        }
-        System.out.println("The smallest number: " + num);
+        System.out.println("The smallest number: " + sum);
     }
 }
