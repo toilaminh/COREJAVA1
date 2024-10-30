@@ -1,7 +1,7 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Scanner;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -22,14 +22,14 @@ public class Main {
                 System.out.println("Wrong input! Please try again!");
             }
         }
-        int[] arr = new int[arr_large];
+        String[] str_arr = new String[arr_large];
         for (int i = 0; i < arr_large; i++){
             while (true)
             {
                 try{
                     System.out.print("Your number " + i + ": ");
                     Scanner input = new Scanner(System.in);
-                    arr[i] = input.nextInt();
+                    str_arr[i] = input.nextLine();
                     break;
                 }
                 catch (Exception e){
@@ -37,32 +37,24 @@ public class Main {
                 }
             }
         }
-        List<Integer> mul = new ArrayList<>();
-        for (int i = 0; i < (1<<arr_large); i++)
-        {
-            List<Integer> temp = new ArrayList<>();
-            int flag = 0;
-            for (int j = 0; j < arr_large; j++) {
-                if ((i & (1 << j)) > 0) {
-                    flag += 1;
-                    temp.add(arr[j]);
+        for (int i = 0;i < arr_large;i++){
+            for (int j = i;j < arr_large;j++){
+                if (str_arr[i].length() < str_arr[j].length() && i!=j){
+                    String t = str_arr[i];
+                    str_arr[i] = str_arr[j];
+                    str_arr[j] = t;
+                }
+                else if(str_arr[i].length() == str_arr[j].length() && i!=j){
+                    if(str_arr[i].compareTo(str_arr[j]) < 0) {
+                        String t = str_arr[i];
+                        str_arr[i] = str_arr[j];
+                        str_arr[j] = t;
+                    }
                 }
             }
-            if(flag == 3){
-                int t_mul = 1;
-                for (int t : temp){
-                    t_mul *= t;
-                }
-                mul.add(t_mul);
-            }
-            temp.clear();
         }
-        int biggest = mul.getFirst();
-        for(int i : mul){
-            if (i > biggest){
-                biggest = i;
-            }
+        for (String i : str_arr){
+            System.out.print(i + " ");
         }
-        System.out.println("The maximum product: " + biggest);
     }
 }

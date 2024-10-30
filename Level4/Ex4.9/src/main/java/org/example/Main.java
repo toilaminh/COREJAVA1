@@ -37,32 +37,21 @@ public class Main {
                 }
             }
         }
-        List<Integer> mul = new ArrayList<>();
-        for (int i = 0; i < (1<<arr_large); i++)
-        {
-            List<Integer> temp = new ArrayList<>();
-            int flag = 0;
-            for (int j = 0; j < arr_large; j++) {
-                if ((i & (1 << j)) > 0) {
-                    flag += 1;
-                    temp.add(arr[j]);
-                }
+        int length_flag = 1;
+        int longest = 1;
+        for (int i = 0;i < arr_large - 1;i++){
+            if(arr[i] < arr[i+1]){
+                length_flag += 1;
             }
-            if(flag == 3){
-                int t_mul = 1;
-                for (int t : temp){
-                    t_mul *= t;
+            else {
+                // Reset lai bien co` do do dai cua subsequence
+                if(longest < length_flag)
+                {
+                    longest = length_flag;
                 }
-                mul.add(t_mul);
-            }
-            temp.clear();
-        }
-        int biggest = mul.getFirst();
-        for(int i : mul){
-            if (i > biggest){
-                biggest = i;
+                length_flag = 1;
             }
         }
-        System.out.println("The maximum product: " + biggest);
+        System.out.println("The longest subsequence has: " + longest + " length!");
     }
 }
