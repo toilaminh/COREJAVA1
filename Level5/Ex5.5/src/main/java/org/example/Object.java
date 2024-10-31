@@ -20,4 +20,11 @@ public class Object {
     public int getb() {
         return b;
     }
+
+    public boolean equals(Object obj){
+        if(this.a == obj.geta() && this.b == obj.getb()){
+            return true;
+        }
+        return false;
+    }
 }

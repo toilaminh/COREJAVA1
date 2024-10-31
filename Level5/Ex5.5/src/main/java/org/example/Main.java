@@ -8,23 +8,63 @@ import java.util.Scanner;
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
+    public static boolean compareObj(List<Object> a, List<Object> b){
+        for(Object x : a){
+            for(Object y : b){
+                if(!x.equals(y)){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
     public static List<Object[]> groupBy(Object[] arr, char c){
         List<Object[]> result = new ArrayList<>();
-        for(int i = 0;i < arr.length - 1;i++){
-            List<Object> temp = new ArrayList<>();
+        List<Object> temp = new ArrayList<>();
+        for(int i = 0;i < arr.length;i++){
+            //Luc dau clear temp va them phan tu dau
+            temp.clear();
             temp.add(arr[i]);
-            for (int j = i+1;j < arr.length;j++){
-                if(c == 'a'){
+            if(c == 'a'){
+                for(int j = 0; j <= i; j++){
+                    // Kiem tra xem i dat toi arr.length chua. neu da den thi return ngay
+                    if(i >= arr.length){
+                        return result;
+                    }
+                    // Check tu phan tu dau tien toi phan tu i co bi trung lap khong, bi trung lap thi tang i len 1 va kiem tra lai
+                    if(arr[j].geta() == arr[i].geta() & j != i){
+                        temp.clear();
+                        if(i != arr.length){
+                            temp.add(arr[i]);
+                            i++;
+                            j = -1;
+                        }
+                    }
+
+                }
+                for(int j = i + 1;j < arr.length; j++){
                     if(arr[i].geta() == arr[j].geta()){
                         temp.add(arr[j]);
                     }
                 }
             }
-            for(Object[] x : result){
-                if(!x.equals(temp)){
-                    Object[] t = temp.toArray(new Object[0]);
-                    result.add(t);
+            else if(c == 'b'){
+                for(int j = 0; j < i; j++){
+                    // Check tu phan tu dau tien toi phan tu i co bi trung lap khong, bi trung lap thi tang i len 1 va kiem tra lai
+                    if(arr[j].getb() == arr[i].getb()){
+                        temp.clear();
+                        i++;
+                        j = -1;
+                    }
                 }
+                for(int j = i + 1;j < arr.length; j++){
+                    if(arr[i].getb() == arr[j].getb()){
+                        temp.add(arr[j]);
+                    }
+                }
+            }
+            if(!temp.isEmpty()){
+                result.add(temp.toArray(new Object[0]));
             }
         }
         return result;
@@ -70,14 +110,15 @@ public class Main {
             }
         }
         System.out.println("Collection after:");
-        for (Object[] obj : groupBy(obj_arr,g_by)){
-            System.out.print("{ ");
+        List<Object[]> fi = groupBy(obj_arr,g_by);
+        for (Object[] obj : fi){
+            System.out.print("<{ ");
             for (Object i : obj){
                 System.out.print("[ ");
                 System.out.print(i.geta() + " - " + i.getb());
                 System.out.print(" ] ");
             }
-            System.out.println("}");
+            System.out.println("}>");
         }
     }
 }
