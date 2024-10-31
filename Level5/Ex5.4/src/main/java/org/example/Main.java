@@ -50,7 +50,7 @@ public class Main {
                 }
             }
         }
-        System.out.println("String after:");
+        System.out.println("Collection after:");
         for (Object i : uniq(obj_arr)){
             System.out.print("[ ");
             System.out.print(i.getX() + " - " + i.getY());
